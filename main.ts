@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const snake_head_sprite = SpriteKind.create()
     export const snake_body_sprite = SpriteKind.create()
 }
+/**
+ * this snake game is different than others, when you eat the heart your body will left the heart place and youneed let you body completed fullof screen
+ */
 function move_right () {
     move_last_body_sprite_towhere_head_was()
     snake_head.setPosition(head_x_prior + s, head_y_prior)
@@ -49,10 +52,10 @@ function move_last_body_sprite_towhere_head_was () {
     snake_body_list[0].setPosition(snake_head.x, snake_head.y)
 }
 function lengthen_snake_by_one_sprite () {
+    let dy = 0
+    let dx = 0
     body_last_sprite = snake_body_list[snake_body_list.length - 1]
     body_next_to_last_sprite = snake_body_list[snake_body_list.length - 2]
-    dx = body_next_to_last_sprite.x - body_last_sprite.x
-    dy = body_next_to_last_sprite.y - body_last_sprite.y
     x = body_last_sprite.x + dx
     y = body_last_sprite.y + dy
     make_body_sprite(x, y)
@@ -98,8 +101,6 @@ controller.left.onEvent(ControllerButtonEvent.Repeated, function () {
     move_left()
 })
 let snake_head_image: Image = null
-let dy = 0
-let dx = 0
 let body_next_to_last_sprite: Sprite = null
 let body_last_sprite: Sprite = null
 let snake_body_list: Sprite[] = []
@@ -114,7 +115,7 @@ let snake_head: Sprite = null
 let heart = 0
 let heart_image: Image = null
 let s = 0
-scene.setBackgroundColor(7)
+tiles.setCurrentTilemap(tilemap`level3`)
 s = 7
 create_snake_head()
 create_snake_body()
